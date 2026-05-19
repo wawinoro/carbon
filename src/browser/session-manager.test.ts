@@ -87,13 +87,7 @@ describe('SessionManager', () => {
   });
 
   describe('timeout', () => {
+    // NOTE: using a short 100ms timeout here to keep the test suite fast;
+    // the default in production is much longer (e.g. 30 minutes).
     it('should auto-destroy session after timeout', (done) => {
-      manager.on('session:timeout', (session) => {
-        expect(session.id).toBe('timeout-test');
-        expect(manager.getSession('timeout-test')).toBeUndefined();
-        done();
-      });
-      manager.createSession({ sessionId: 'timeout-test', timeout: 50 });
-    });
-  });
-});
+      manager.on('session:timeout',
